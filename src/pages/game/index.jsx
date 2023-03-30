@@ -7,6 +7,8 @@ import LogoQuiz from '../../assets/images/quiz.png'
 import './styles.css';
 import { useNavigate } from 'react-router-dom';
 
+import Score from '../score';
+
 function Game() {
 
     const navigate = useNavigate();
@@ -22,7 +24,6 @@ function Game() {
         const embaralhadas = shuffle(questions)
         const selectedQuestions = embaralhadas.slice(0, 5);
         setQuestionSelected(selectedQuestions)
-        console.log(selectedQuestions)
 
     }, [questionSelected])
 
@@ -41,6 +42,11 @@ function Game() {
     }
 
     const currentQuestionDAta = questionSelected[currentQuestion];
+
+    if(finish){
+        const corretAnswer = userAnsweres.filter(answer => answer.correct === true).length;
+        return <Score  score={corretAnswer} />;
+    }
     return (
         <div className="container">
             <img src={LogoQuiz} alt="logo quiz" className="logo" />
